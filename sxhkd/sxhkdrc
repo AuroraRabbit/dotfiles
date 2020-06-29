@@ -1,0 +1,77 @@
+# -------------
+# MISCELLANEOUS
+# -------------
+
+# Takes a screenshot and saves it
+@Print
+    scrot -sfb $HOME/prints/$(date +%F_%T).png -e 'xclip -selection clipboard -t image/png < $f'
+
+# Media controls for cmus
+XF86Audio{Play,Next,Prev,Stop}
+	cmus-remote {-u,-n,-r,-s}
+
+# Volume bar controls with pulseaudio
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+XF86Audio{Raise,Lower}Volume
+	pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
+
+# ---------------
+# PROGRAM RUNNING
+# ---------------
+
+# Run Termite
+super+Return
+	termite
+
+# Run Firefox
+super+p
+	firefox
+
+# Run Rofi
+super+d
+	rofi -show run
+
+# -----------------
+# BSPWM KEYBINDINGS
+# -----------------
+
+# Restart bspwm and sxhkd
+super+shift+r
+	pkill -USR1 -x sxhkd;~/.config/bspwm/bspwmrc
+
+# Kill window
+super+shift+q
+	bspc node -c
+
+# Switch/Move window
+super+{_,shift+}{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# Focus/Move window to desktop
+super+{_,shift+}{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# Toggle floating
+super+space
+	bspc node -t '~{floating}'
+
+# Toggle fullscreen
+super+f
+	bspc node -t '~{fullscreen}'
+
+# Focus last window/desktop
+super+{Tab,grave}
+	bspc {node,desktop} -f last
+
+# Resize focused window
+super+ctrl+shift+{h,j,k,l}
+	bspc node {@west -r -15,@south -r +15,@south -r -15,@west -r +15}
+
+# Toggle Monocle/Tiled
+super+{m,t}
+	bspc desktop -l ~{monocle,tiled}
+
+# Rotate 90 deg
+super+{_,ctrl}+r
+	bspc node @/ --rotate {90,270}

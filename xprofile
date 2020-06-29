@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+sxhkd &
+dunst &
+picom &
+setxkbmap -layout gb &
+/home/aurora/.config/polybar/launch.sh
+wal -i /home/aurora/Documents/wallpaper7.jpg
